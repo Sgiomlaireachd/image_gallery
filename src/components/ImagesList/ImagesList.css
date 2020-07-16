@@ -1,0 +1,18 @@
+.images__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.images__item {
+  padding: 10px;
+  box-shadow: 0px 0px 20px rgb(88, 88, 88);
+  cursor: pointer;
+  text-align: center;
+}
+
+.images__item img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

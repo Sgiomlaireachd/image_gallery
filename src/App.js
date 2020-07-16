@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import api from "./api/api";
+import ImagesList from "./components/ImagesList/ImagesList";
+import ModalContainer from "./components/Modal/ModalContainer";
 
-function App() {
+const App = React.memo(() => {
+  const [images, setImages] = useState([]);
+  const [currentImageId, setCurrentImageId] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const images = await api.getImages();
+      setImages(images);
+    })();
+  }, []);
+
+  const onClick = (imageId) => {
+    setCurrentImageId(imageId);
+  };
+
+  const onSetCurrentImageId = (imageId) => {
+    setCurrentImageId(imageId);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ImagesList images={images} onClick={onClick} />
+      <ModalContainer
+        currentImageId={currentImageId}
+        onSetCurrentImageId={onSetCurrentImageId}
+      />
     </div>
   );
-}
+});
 
 export default App;
