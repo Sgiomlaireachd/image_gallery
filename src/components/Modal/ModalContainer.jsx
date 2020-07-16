@@ -5,11 +5,13 @@ import api from "../../api/api";
 
 export default ({ currentImageId, onSetCurrentImageId }) => {
   const [imageData, setImageData] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     (async () => {
       if (currentImageId) {
         const imageData = await api.getImageComments(currentImageId);
+        console.log("USE_EFFECT:", imageData);
         setImageData(imageData);
       }
     })();
@@ -19,12 +21,25 @@ export default ({ currentImageId, onSetCurrentImageId }) => {
     setImageData(data);
   };
 
+  const onCommentChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
+  const onCommentSend = async (e) => {
+    e.preventDefault();
+    setNewComment("");
+    await api.sendImageComment(currentImageId, newComment);
+  };
+
   if (currentImageId === null) return <></>;
   return (
     <Modal
       imageData={imageData}
-      onSetImageData={onSetImageData}
+      newComment={newComment}
       onSetCurrentImageId={onSetCurrentImageId}
+      onSetImageData={onSetImageData}
+      onCommentChange={onCommentChange}
+      onCommentSend={onCommentSend}
     />
   );
 };

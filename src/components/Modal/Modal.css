@@ -13,10 +13,34 @@
   height: 100%;
 }
 
-.modal__inner {
+.modal__wrapper {
+  width: 65%;
+  padding: 40px;
   position: absolute;
   background: #fff;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+}
+
+.modal__inner {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-gap: 20px;
+}
+
+.modal__left img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.modal__right {
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
